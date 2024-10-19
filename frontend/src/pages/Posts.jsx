@@ -74,6 +74,22 @@ const Posts = () => {
     }
   };
 
+  const handleDeletePost = async (postId) => {
+    if (window.confirm("Are you sure you want to delete this post?")) {
+      try {
+        const token = localStorage.getItem("token");
+        await axios.delete(`http://localhost:5000/api/posts/${postId}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        const res = await axios.get("http://localhost:5000/api/posts");
+        setPosts(res.data);
+      } catch (err) {
+        console.error("Failed to delete post:", err);
+      }
+    }
+  };
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     window.location.href = "/";

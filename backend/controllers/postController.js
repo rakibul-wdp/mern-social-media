@@ -20,6 +20,21 @@ exports.getPosts = async (req, res) => {
   }
 };
 
+exports.updatePost = async (req, res) => {
+  const { title, content } = req.body;
+  try {
+    const post = await Post.findOneAndUpdate(
+      { _id: req.params.id, author: req.userId },
+      { title, content },
+      { new: true }
+    );
+    if (!post) throw new Error("Post not found or unauthorized");
+    res.json(post);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
 exports.likePost = async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);

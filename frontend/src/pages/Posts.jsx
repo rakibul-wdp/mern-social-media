@@ -54,6 +54,26 @@ const Posts = () => {
     }
   };
 
+  const handleUpdatePost = async (postId) => {
+    const newTitle = prompt("Enter new title:");
+    const newContent = prompt("Enter new content:");
+    if (newTitle && newContent) {
+      try {
+        const token = localStorage.getItem("token");
+        await axios.put(
+          `http://localhost:5000/api/posts/${postId}`,
+          { title: newTitle, content: newContent },
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+
+        const res = await axios.get("http://localhost:5000/api/posts");
+        setPosts(res.data);
+      } catch (err) {
+        console.error("Failed to update post:", err);
+      }
+    }
+  };
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     window.location.href = "/";
@@ -83,6 +103,20 @@ const Posts = () => {
                 </button>
                 <button className="text-gray-600 hover:text-gray-800">
                   Comment ({post.comments.length})
+                </button>
+              </div>
+              <div className="flex items-center space-x-4 mb-4">
+                <button
+                  onClick={() => handleUpdatePost(post._id)}
+                  className="text-green-600 hover:text-green-800"
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={() => handleDeletePost(post._id)}
+                  className="text-red-600 hover:text-red-800"
+                >
+                  Delete
                 </button>
               </div>
               <div className="mt-4">

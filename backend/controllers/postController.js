@@ -35,6 +35,19 @@ exports.updatePost = async (req, res) => {
   }
 };
 
+exports.deletePost = async (req, res) => {
+  try {
+    const post = await Post.findOneAndDelete({
+      _id: req.params.id,
+      author: req.userId,
+    });
+    if (!post) throw new Error("Post not found or unauthorized");
+    res.json({ message: "Post deleted successfully" });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
 exports.likePost = async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);

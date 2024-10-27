@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
@@ -11,9 +12,9 @@ const ForgotPassword = () => {
       await axios.post("http://localhost:5000/api/auth/forgot-password", {
         email,
       });
-      alert("Password reset link sent to your email.");
+      toast.info("Password reset link sent to your email.");
     } catch (err) {
-      alert(err.response?.data?.error || "Failed to send reset link.");
+      toast.error(err.response?.data?.error || "Failed to send reset link.");
     }
   };
 

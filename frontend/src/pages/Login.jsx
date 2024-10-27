@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [formData, setFormData] = useState({ username: "", password: "" });
@@ -13,10 +14,9 @@ const Login = () => {
         formData
       );
       localStorage.setItem("token", res.data.token);
-      alert("Logged in successfully");
       window.location.href = "/posts";
     } catch (err) {
-      alert(err.response?.data?.error || "Login failed");
+      toast.error(err.response?.data?.error || "Login failed");
     }
   };
 

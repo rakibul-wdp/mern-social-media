@@ -3,6 +3,7 @@ import Login from "./pages/Login";
 import Posts from "./pages/Posts";
 import Register from "./pages/Register";
 import ForgotPassword from "./pages/ForgotPassword";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/posts" element={<Posts />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
       </Routes>
+      <ToastContainer />
     </BrowserRouter>
   );
 }

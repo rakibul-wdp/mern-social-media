@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -13,10 +14,9 @@ const Register = () => {
     e.preventDefault();
     try {
       await axios.post("http://localhost:5000/api/auth/register", formData);
-      alert("User registered successfully");
-      window.location.href = "/";
+      window.location.href = "/posts";
     } catch (err) {
-      alert(err.response?.data?.error || "Registration failed");
+      toast.error(err.response?.data?.error || "Registration failed");
     }
   };
 

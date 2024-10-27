@@ -122,7 +122,7 @@ const Posts = () => {
           <h1 className="text-3xl font-bold">Social Media Posts</h1>
           <button
             onClick={handleLogout}
-            className="bg-red-600 text-white py-1 px-4 rounded-md hover:bg-red-700"
+            className="bg-red-600 text-white py-1 px-4 rounded-md hover:bg-red-700 cursor-pointer"
           >
             Logout
           </button>
@@ -151,7 +151,7 @@ const Posts = () => {
             />
             <button
               onClick={handleCreatePost}
-              className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700"
+              className="w-full bg-blue-600 text-white py-2 px-4 cursor-pointer rounded-md hover:bg-blue-700"
             >
               Create Post
             </button>
@@ -166,22 +166,22 @@ const Posts = () => {
               <div className="flex items-center space-x-4 mb-4">
                 <button
                   onClick={() => handleLike(post._id)}
-                  className="text-blue-600 hover:text-blue-800"
+                  className="text-blue-600 hover:text-blue-800 cursor-pointer"
                 >
                   Like ({post.likes.length})
                 </button>
-                <button className="text-gray-600 hover:text-gray-800">
+                <button className="text-gray-600 hover:text-gray-800 cursor-pointer">
                   Comment ({post.comments.length})
                 </button>
                 <button
                   onClick={() => handleUpdatePost(post._id)}
-                  className="text-green-600 hover:text-green-800"
+                  className="text-green-600 hover:text-green-800 cursor-pointer"
                 >
                   Edit
                 </button>
                 <button
                   onClick={() => handleDeletePost(post._id)}
-                  className="text-red-600 hover:text-red-800"
+                  className="text-red-600 hover:text-red-800 cursor-pointer"
                 >
                   Delete
                 </button>
@@ -196,7 +196,7 @@ const Posts = () => {
                 />
                 <button
                   onClick={() => handleAddComment(post._id)}
-                  className="mt-2 bg-blue-600 text-white py-1 px-4 rounded-md hover:bg-blue-700"
+                  className="mt-2 bg-blue-600 text-white py-1 px-4 rounded-md cursor-pointer hover:bg-blue-700"
                 >
                   Add Comment
                 </button>

@@ -22,10 +22,7 @@ exports.getPosts = async (req, res) => {
 
 exports.getUniquePost = async (req, res) => {
   try {
-    const post = await Post.findById(req.params.id).populate(
-      "author",
-      "username"
-    );
+    const post = await Post.findById(req.params.id);
     res.json(post);
   } catch (err) {
     res.status(400).json({ error: err.message });
@@ -36,7 +33,7 @@ exports.updatePost = async (req, res) => {
   const { title, content } = req.body;
   try {
     const post = await Post.findOneAndUpdate(
-      { _id: req.params.id, author: req.userId },
+      { _id: req.params.id },
       { title, content },
       { new: true }
     );

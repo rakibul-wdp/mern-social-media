@@ -1,7 +1,8 @@
-import { useState } from "react";
 import axios from "axios";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import GuestCredentials from "../components/GuestCredentials";
 
 const Login = () => {
   const [formData, setFormData] = useState({ username: "", password: "" });
@@ -22,6 +23,7 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <GuestCredentials />
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
         <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
         <form onSubmit={handleSubmit} className="space-y-6">

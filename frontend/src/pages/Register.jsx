@@ -14,7 +14,7 @@ const Register = () => {
     e.preventDefault();
     try {
       await axios.post("http://localhost:5000/api/auth/register", formData);
-      window.location.href = "/posts";
+      window.location.href = "/";
     } catch (err) {
       toast.error(err.response?.data?.error || "Registration failed");
     }

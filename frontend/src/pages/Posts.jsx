@@ -1,11 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import CreatePost from "../components/CreatePost";
+import EditPost from "../components/EditPost";
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
   const [commentText, setCommentText] = useState("");
   const [isCreatePostOpen, setIsCreatePostOpen] = useState(false);
+  const [isEditPostOpen, setIsEditPostOpen] = useState(false);
+  const [postId, setPostId] = useState("");
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -56,24 +59,9 @@ const Posts = () => {
     }
   };
 
-  const handleUpdatePost = async (postId) => {
-    const newTitle = prompt("Enter new title:");
-    const newContent = prompt("Enter new content:");
-    if (newTitle && newContent) {
-      try {
-        const token = localStorage.getItem("token");
-        await axios.put(
-          `http://localhost:5000/api/posts/${postId}`,
-          { title: newTitle, content: newContent },
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
-
-        const res = await axios.get("http://localhost:5000/api/posts");
-        setPosts(res.data);
-      } catch (err) {
-        console.error("Failed to update post:", err);
-      }
-    }
+  const handleEditPost = (postId) => {
+    setIsEditPostOpen(true);
+    setPostId(postId);
   };
 
   const handleDeletePost = async (postId) => {
@@ -138,11 +126,17 @@ const Posts = () => {
                   Comment ({post.comments.length})
                 </button>
                 <button
-                  onClick={() => handleUpdatePost(post._id)}
+                  onClick={() => handleEditPost(post._id)}
                   className="text-green-600 hover:text-green-800 cursor-pointer"
                 >
                   Edit
                 </button>
+                <EditPost
+                  postId={postId}
+                  isEditPostOpen={isEditPostOpen}
+                  setIsEditPostOpen={setIsEditPostOpen}
+                  setPosts={setPosts}
+                />
                 <button
                   onClick={() => handleDeletePost(post._id)}
                   className="text-red-600 hover:text-red-800 cursor-pointer"

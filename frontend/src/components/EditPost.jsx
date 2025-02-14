@@ -1,11 +1,28 @@
 /* eslint-disable react/prop-types */
 import { Dialog, DialogPanel } from "@headlessui/react";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 const EditPost = ({ isEditPostOpen, setIsEditPostOpen, postId, setPosts }) => {
   const [editPost, setEditPost] = useState({ title: "", content: "" });
+
+  useEffect(() => {
+    const fetchPost = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:5000/api/posts/${postId}`
+        );
+        setEditPost({
+          title: res.data.title || "",
+          content: res.data.content || "",
+        });
+      } catch (err) {
+        console.error("Failed to fetch posts:", err);
+      }
+    };
+    fetchPost();
+  }, [postId]);
 
   const handleUpdatePost = async () => {
     try {
@@ -18,7 +35,6 @@ const EditPost = ({ isEditPostOpen, setIsEditPostOpen, postId, setPosts }) => {
 
       const res = await axios.get("http://localhost:5000/api/posts");
       setPosts(res.data);
-      setEditPost({ title: "", content: "" });
       setIsEditPostOpen(false);
     } catch (err) {
       toast.error("Failed to update post:", err);
@@ -39,7 +55,7 @@ const EditPost = ({ isEditPostOpen, setIsEditPostOpen, postId, setPosts }) => {
               <input
                 type="text"
                 placeholder="Title"
-                value={editPost.title}
+                value={editPost.title || ""}
                 onChange={(e) =>
                   setEditPost({ ...editPost, title: e.target.value })
                 }
@@ -47,7 +63,7 @@ const EditPost = ({ isEditPostOpen, setIsEditPostOpen, postId, setPosts }) => {
               />
               <textarea
                 placeholder="Content"
-                value={editPost.content}
+                value={editPost.content || ""}
                 onChange={(e) =>
                   setEditPost({ ...editPost, content: e.target.value })
                 }

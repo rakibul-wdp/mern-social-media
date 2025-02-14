@@ -20,6 +20,18 @@ exports.getPosts = async (req, res) => {
   }
 };
 
+exports.getUniquePost = async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id).populate(
+      "author",
+      "username"
+    );
+    res.json(post);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
 exports.updatePost = async (req, res) => {
   const { title, content } = req.body;
   try {

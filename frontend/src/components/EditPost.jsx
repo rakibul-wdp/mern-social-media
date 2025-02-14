@@ -11,7 +11,7 @@ const EditPost = ({ isEditPostOpen, setIsEditPostOpen, postId, setPosts }) => {
     const fetchPost = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/posts/${postId}`
+          `https://mern-social-media-rakibul-wdp.onrender.com/api/posts/${postId}`
         );
         setEditPost({
           title: res.data.title || "",
@@ -28,12 +28,14 @@ const EditPost = ({ isEditPostOpen, setIsEditPostOpen, postId, setPosts }) => {
     try {
       const token = localStorage.getItem("token");
       await axios.put(
-        `http://localhost:5000/api/posts/${postId}`,
+        `https://mern-social-media-rakibul-wdp.onrender.com/api/posts/${postId}`,
         { title: editPost.title, content: editPost.content },
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
-      const res = await axios.get("http://localhost:5000/api/posts");
+      const res = await axios.get(
+        "https://mern-social-media-rakibul-wdp.onrender.com/api/posts"
+      );
       setPosts(res.data);
       setIsEditPostOpen(false);
     } catch (err) {

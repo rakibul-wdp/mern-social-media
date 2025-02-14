@@ -10,14 +10,16 @@ const CommentPost = ({ setPosts, postId }) => {
     try {
       const token = localStorage.getItem("token");
       await axios.post(
-        `http://localhost:5000/api/posts/${postId}/comment`,
+        `https://mern-social-media-rakibul-wdp.onrender.com/api/posts/${postId}/comment`,
         { text: commentText },
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
 
-      const res = await axios.get("http://localhost:5000/api/posts");
+      const res = await axios.get(
+        "https://mern-social-media-rakibul-wdp.onrender.com/api/posts"
+      );
       setPosts(res.data);
       setCommentText("");
     } catch (err) {

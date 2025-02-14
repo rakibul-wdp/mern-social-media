@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import CommentPost from "../components/CommentPost";
 import CreatePost from "../components/CreatePost";
 import EditPost from "../components/EditPost";
-import CommentPost from "../components/CommentPost";
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
@@ -13,7 +13,9 @@ const Posts = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/posts");
+        const res = await axios.get(
+          "https://mern-social-media-rakibul-wdp.onrender.com/api/posts"
+        );
         setPosts(res.data);
       } catch (err) {
         console.error("Failed to fetch posts:", err);
@@ -26,14 +28,16 @@ const Posts = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.post(
-        `http://localhost:5000/api/posts/${postId}/like`,
+        `https://mern-social-media-rakibul-wdp.onrender.com/api/posts/${postId}/like`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
 
-      const res = await axios.get("http://localhost:5000/api/posts");
+      const res = await axios.get(
+        "https://mern-social-media-rakibul-wdp.onrender.com/api/posts"
+      );
       setPosts(res.data);
     } catch (err) {
       console.error("Failed to like post:", err);
@@ -49,11 +53,16 @@ const Posts = () => {
     if (window.confirm("Are you sure you want to delete this post?")) {
       try {
         const token = localStorage.getItem("token");
-        await axios.delete(`http://localhost:5000/api/posts/${postId}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        await axios.delete(
+          `https://mern-social-media-rakibul-wdp.onrender.com/api/posts/${postId}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
 
-        const res = await axios.get("http://localhost:5000/api/posts");
+        const res = await axios.get(
+          "https://mern-social-media-rakibul-wdp.onrender.com/api/posts"
+        );
         setPosts(res.data);
       } catch (err) {
         console.error("Failed to delete post:", err);

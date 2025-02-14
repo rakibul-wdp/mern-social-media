@@ -11,14 +11,16 @@ const CreatePost = ({ isCreatePostOpen, setIsCreatePostOpen, setPosts }) => {
     try {
       const token = localStorage.getItem("token");
       await axios.post(
-        "http://localhost:5000/api/posts",
+        "https://mern-social-media-rakibul-wdp.onrender.com/api/posts",
         { title: newPost.title, content: newPost.content },
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
 
-      const res = await axios.get("http://localhost:5000/api/posts");
+      const res = await axios.get(
+        "https://mern-social-media-rakibul-wdp.onrender.com/api/posts"
+      );
       setPosts(res.data);
       setNewPost({ title: "", content: "" });
       setIsCreatePostOpen(false);

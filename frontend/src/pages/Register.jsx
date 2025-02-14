@@ -1,5 +1,5 @@
-import { useState } from "react";
 import axios from "axios";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -13,7 +13,10 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/api/auth/register", formData);
+      await axios.post(
+        "https://mern-social-media-rakibul-wdp.onrender.com/api/auth/register",
+        formData
+      );
       window.location.href = "/";
     } catch (err) {
       toast.error(err.response?.data?.error || "Registration failed");

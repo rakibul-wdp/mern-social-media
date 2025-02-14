@@ -4,6 +4,8 @@ This is a full-stack social media application built using the **MERN stack** (Mo
 
 ---
 
+## **[Backend Live Site](https://mern-social-media-rakibul-wdp.onrender.com) || [Frontend Live Site](https://mern-social-rakibul-wdp.netlify.app)**
+
 ## **Features**
 
 ### **Backend (Node.js + Express.js)**
